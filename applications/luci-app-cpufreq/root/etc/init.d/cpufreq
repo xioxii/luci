@@ -5,7 +5,13 @@ START=15
 NAME="cpufreq"
 CPUFREQ_PATH="/sys/devices/system/cpu/cpufreq"
 
-extra_command "get_policies" "Get CPU scaling governors and frequencies"
+if type extra_command >/dev/null 2>&1; then
+	extra_command "get_policies" "Get CPU scaling governors and frequencies"
+else
+	EXTRA_COMMANDS="${EXTRA_COMMANDS} get_policies"
+	EXTRA_HELP="${EXTRA_HELP}
+	get_policies	Get CPU scaling governors and frequencies"
+fi
 
 write_cpufreq_config() {
 	local value
